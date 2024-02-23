@@ -44,6 +44,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             if (reader.Asset.ObjectVersion >= ObjectVersion.VER_UE4_CHANGE_SETARRAY_BYTECODE)
             {
                 AssigningProperty = ExpressionSerializer.ReadExpression(reader);

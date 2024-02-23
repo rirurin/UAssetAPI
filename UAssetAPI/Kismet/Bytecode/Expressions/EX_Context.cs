@@ -49,6 +49,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             ObjectExpression = ExpressionSerializer.ReadExpression(reader);
             Offset = reader.ReadUInt32();
             RValuePointer = reader.XFER_PROP_POINTER();

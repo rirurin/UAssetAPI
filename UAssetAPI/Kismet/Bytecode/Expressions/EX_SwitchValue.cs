@@ -81,6 +81,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             ushort numCases = reader.ReadUInt16(); // number of cases, without default one
             EndGotoOffset = reader.ReadUInt32();
             IndexTerm = ExpressionSerializer.ReadExpression(reader);

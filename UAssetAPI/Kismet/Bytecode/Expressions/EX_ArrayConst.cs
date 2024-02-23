@@ -37,6 +37,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             InnerProperty = reader.XFER_PROP_POINTER();
             int numEntries = reader.ReadInt32(); // Number of elements
             Elements = reader.ReadExpressionArray(EExprToken.EX_EndArrayConst);

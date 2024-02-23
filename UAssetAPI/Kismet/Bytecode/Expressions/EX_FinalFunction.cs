@@ -38,6 +38,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             StackNode = reader.XFER_FUNC_POINTER();
 
             Parameters = reader.ReadExpressionArray(EExprToken.EX_EndFunctionParms);

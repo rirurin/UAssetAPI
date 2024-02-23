@@ -21,6 +21,7 @@
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             Value = reader.ReadUInt64();
         }
 

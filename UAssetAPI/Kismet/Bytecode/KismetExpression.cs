@@ -27,6 +27,8 @@ namespace UAssetAPI.Kismet.Bytecode
 
         public object RawValue;
 
+        public long SerialOffset;
+
         public void SetObject(object value)
         {
             RawValue = value;
@@ -48,7 +50,7 @@ namespace UAssetAPI.Kismet.Bytecode
         /// <param name="reader">The BinaryReader to read from.</param>
         public virtual void Read(AssetBinaryReader reader)
         {
-
+            SerialOffset = reader.BaseStream.Position;
         }
 
         /// <summary>

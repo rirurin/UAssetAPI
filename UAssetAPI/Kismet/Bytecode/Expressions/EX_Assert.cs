@@ -43,6 +43,7 @@ namespace UAssetAPI.Kismet.Bytecode.Expressions
         /// <param name="reader">The BinaryReader to read from.</param>
         public override void Read(AssetBinaryReader reader)
         {
+            base.Read(reader);
             LineNumber = reader.ReadUInt16();
             DebugMode = reader.ReadBoolean();
             AssertExpression = ExpressionSerializer.ReadExpression(reader);

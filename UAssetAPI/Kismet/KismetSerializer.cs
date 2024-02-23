@@ -549,6 +549,7 @@ namespace UAssetAPI.Kismet
                 case EX_PrimitiveCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index++;
                         switch (exp.ConversionType)
                         {
@@ -578,6 +579,7 @@ namespace UAssetAPI.Kismet
                 case EX_SetSet exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("LeftSideExpression", SerializeExpression(exp.SetProperty, ref index));
                         JArray jparams = new JArray();
 
@@ -594,6 +596,7 @@ namespace UAssetAPI.Kismet
                     {
                         index += 8;
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add(SerializePropertyPointer(exp.InnerProperty, new[] { "InnerProperty" }));
 
                         index += 4;
@@ -609,6 +612,7 @@ namespace UAssetAPI.Kismet
                 case EX_SetMap exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("LeftSideExpression", SerializeExpression(exp.MapProperty, ref index));
 
                         index += 4;
@@ -627,6 +631,7 @@ namespace UAssetAPI.Kismet
                 case EX_MapConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.KeyProperty, new[] { "KeyProperty" }));
                         jexp.Add(SerializePropertyPointer(exp.ValueProperty, new[] { "ValueProperty" }));
@@ -647,6 +652,7 @@ namespace UAssetAPI.Kismet
                 case EX_ObjToInterfaceCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("InterfaceClass", GetFullName(exp.ClassPtr.Index));
                         jexp.Add("Expression", SerializeExpression(exp.Target, ref index));
@@ -655,6 +661,7 @@ namespace UAssetAPI.Kismet
                 case EX_CrossInterfaceCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("InterfaceClass", GetFullName(exp.ClassPtr.Index));
                         jexp.Add("Expression", SerializeExpression(exp.Target, ref index));
@@ -663,6 +670,7 @@ namespace UAssetAPI.Kismet
                 case EX_InterfaceToObjCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("ObjectClass", GetFullName(exp.ClassPtr.Index));
                         jexp.Add("Expression", SerializeExpression(exp.Target, ref index));
@@ -671,6 +679,7 @@ namespace UAssetAPI.Kismet
                 case EX_Let exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Variable", SerializeExpression(exp.Variable, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.Expression, ref index));
@@ -679,6 +688,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetObj exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Variable", SerializeExpression(exp.VariableExpression, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
                         break;
@@ -686,6 +696,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetWeakObjPtr exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Variable", SerializeExpression(exp.VariableExpression, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
                         break;
@@ -693,6 +704,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetBool exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Variable", SerializeExpression(exp.VariableExpression, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
                         break;
@@ -700,6 +712,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetValueOnPersistentFrame exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.DestinationProperty, new[] { "Property Outer", "Property Name" }));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
@@ -708,6 +721,7 @@ namespace UAssetAPI.Kismet
                 case EX_StructMemberContext exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.StructMemberExpression, new[] { "Property Outer", "Property Name" }));
                         jexp.Add("StructExpression", SerializeExpression(exp.StructExpression, ref index));
@@ -716,6 +730,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Variable", SerializeExpression(exp.VariableExpression, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
                         break;
@@ -723,6 +738,7 @@ namespace UAssetAPI.Kismet
                 case EX_LocalVirtualFunction exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 12;
                         jexp.Add("FunctionName", exp.VirtualFunctionName.ToString());
                         JArray jparams = new JArray();
@@ -737,6 +753,7 @@ namespace UAssetAPI.Kismet
                 case EX_LocalFinalFunction exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Function", GetName(exp.StackNode.Index));
                         index += 8;
                         JArray jparams = new JArray();
@@ -751,6 +768,7 @@ namespace UAssetAPI.Kismet
                 case EX_LetMulticastDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Variable", SerializeExpression(exp.VariableExpression, ref index));
                         jexp.Add("Expression", SerializeExpression(exp.AssignmentExpression, ref index));
                         break;
@@ -758,12 +776,14 @@ namespace UAssetAPI.Kismet
                 case EX_ComputedJump exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("OffsetExpression", SerializeExpression(exp.CodeOffsetExpression, ref index));
                         break;
                     }
                 case EX_Jump exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 4;
                         jexp.Add("Offset", exp.CodeOffset);
                         break;
@@ -771,6 +791,7 @@ namespace UAssetAPI.Kismet
                 case EX_LocalVariable exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.Variable, new[] { "Variable Outer", "Variable Name" }));
                         break;
@@ -778,6 +799,7 @@ namespace UAssetAPI.Kismet
                 case EX_DefaultVariable exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.Variable, new[] { "Variable Outer", "Variable Name" }));
                         break;
@@ -785,6 +807,7 @@ namespace UAssetAPI.Kismet
                 case EX_InstanceVariable exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.Variable, new[] { "Variable Outer", "Variable Name" }));
                         break;
@@ -792,6 +815,7 @@ namespace UAssetAPI.Kismet
                 case EX_LocalOutVariable exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.Variable, new[] { "Variable Outer", "Variable Name" }));
                         break;
@@ -799,6 +823,7 @@ namespace UAssetAPI.Kismet
                 case EX_InterfaceContext exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Expression", SerializeExpression(exp.InterfaceValue, ref index));
                         break;
                     }
@@ -814,17 +839,20 @@ namespace UAssetAPI.Kismet
                 case EX_Self exp10:
                     {
                         jexp.Add("Inst", expression.Inst);
+                        jexp.Add("SerialOffset", expression.SerialOffset);
                         break;
                     }
                 case EX_Return exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Expression", SerializeExpression(exp.ReturnExpression, ref index));
                         break;
                     }
                 case EX_CallMath exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Function", GetName(exp.StackNode.Index));
                         jexp.Add("ContextClass", GetParentName(exp.StackNode.Index));
@@ -840,6 +868,7 @@ namespace UAssetAPI.Kismet
                 case EX_CallMulticastDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         JObject jsign = new JObject();
                         bool bIsSelfContext = GetClassIndex() == exp.StackNode.Index;
@@ -861,6 +890,7 @@ namespace UAssetAPI.Kismet
                 case EX_FinalFunction exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Function", GetName(exp.StackNode.Index));
                         JArray jparams = new JArray();
@@ -875,6 +905,7 @@ namespace UAssetAPI.Kismet
                 case EX_VirtualFunction exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 12;
                         jexp.Add("Function", exp.VirtualFunctionName.ToString());
                         JArray jparams = new JArray();
@@ -904,6 +935,7 @@ namespace UAssetAPI.Kismet
                         {
                         }
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Context", SerializeExpression(exp.ObjectExpression, ref index));
                         index += 4;
                         jexp.Add("SkipOffsetForNull", exp.Offset);
@@ -916,6 +948,7 @@ namespace UAssetAPI.Kismet
                     {
                         index += 4;
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Value", exp.Value);
                         break;
                     }
@@ -923,6 +956,7 @@ namespace UAssetAPI.Kismet
                     {
                         index += 4;
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Value", exp.Value);
                         break;
                     }
@@ -930,6 +964,7 @@ namespace UAssetAPI.Kismet
                     {
                         index += 4;
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Value", exp.Value);
                         break;
                     }
@@ -937,12 +972,14 @@ namespace UAssetAPI.Kismet
                     {
                         index += 8;
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Value", exp.Value);
                         break;
                     }
                 case EX_StringConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += exp.Value.Length + 1;
                         jexp.Add("Value", exp.Value);
                         break;
@@ -950,6 +987,7 @@ namespace UAssetAPI.Kismet
                 case EX_UnicodeStringConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 2 * (exp.Value.Length + 1);
                         jexp.Add("Value", exp.Value);
                         break;
@@ -957,6 +995,7 @@ namespace UAssetAPI.Kismet
                 case EX_TextConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index++;
                         switch (exp.Value.TextLiteralType)
                         {
@@ -1002,6 +1041,7 @@ namespace UAssetAPI.Kismet
                 case EX_ObjectConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Object", GetFullName(exp.Value.Index));
                         break;
@@ -1009,12 +1049,14 @@ namespace UAssetAPI.Kismet
                 case EX_SoftObjectConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Value", SerializeExpression(exp.Value, ref index));
                         break;
                     }
                 case EX_NameConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 12;
                         jexp.Add("Value", exp.Value.ToString());
                         break;
@@ -1022,6 +1064,7 @@ namespace UAssetAPI.Kismet
                 case EX_RotationConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += ((asset.ObjectVersionUE5 >= ObjectVersionUE5.LARGE_WORLD_COORDINATES) ? sizeof(double) : sizeof(float)) * 3;
                         jexp.Add("Pitch", exp.Value.Pitch);
                         jexp.Add("Yaw", exp.Value.Yaw);
@@ -1031,6 +1074,7 @@ namespace UAssetAPI.Kismet
                 case EX_VectorConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += ((asset.ObjectVersionUE5 >= ObjectVersionUE5.LARGE_WORLD_COORDINATES) ? sizeof(double) : sizeof(float)) * 3;
                         jexp.Add("X", exp.Value.X);
                         jexp.Add("Y", exp.Value.Y);
@@ -1040,6 +1084,7 @@ namespace UAssetAPI.Kismet
                 case EX_TransformConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += ((asset.ObjectVersionUE5 >= ObjectVersionUE5.LARGE_WORLD_COORDINATES) ? sizeof(double) : sizeof(float)) * 10;
                         JObject jrot = new JObject();
                         JObject jtrans = new JObject();
@@ -1066,6 +1111,7 @@ namespace UAssetAPI.Kismet
                 case EX_StructConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Struct", GetFullName(exp.Struct.Index));
 
@@ -1086,6 +1132,7 @@ namespace UAssetAPI.Kismet
                 case EX_SetArray exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("LeftSideExpression", SerializeExpression(exp.AssigningProperty, ref index));
                         JArray jparams = new JArray();
                         foreach (KismetExpression param in exp.Elements)
@@ -1099,6 +1146,7 @@ namespace UAssetAPI.Kismet
                 case EX_ArrayConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add(SerializePropertyPointer(exp.InnerProperty, new[] { "Variable Outer" }));
 
@@ -1115,6 +1163,7 @@ namespace UAssetAPI.Kismet
                 case EX_ByteConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index++;
                         jexp.Add("Value", exp.Value);
                         break;
@@ -1122,6 +1171,7 @@ namespace UAssetAPI.Kismet
                 case EX_IntConstByte exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index++;
                         jexp.Add("Value", exp.Value);
                         break;
@@ -1129,6 +1179,7 @@ namespace UAssetAPI.Kismet
                 case EX_Int64Const exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Value", exp.Value);
                         break;
@@ -1136,6 +1187,7 @@ namespace UAssetAPI.Kismet
                 case EX_UInt64Const exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Value", exp.Value);
                         break;
@@ -1143,12 +1195,14 @@ namespace UAssetAPI.Kismet
                 case EX_FieldPathConst exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Expression", SerializeExpression(exp.Value, ref index));
                         break;
                     }
                 case EX_MetaCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Class", GetFullName(exp.ClassPtr.Index));
                         jexp.Add("Expression", SerializeExpression(exp.TargetExpression, ref index));
@@ -1157,6 +1211,7 @@ namespace UAssetAPI.Kismet
                 case EX_DynamicCast exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 8;
                         jexp.Add("Class", GetFullName(exp.ClassPtr.Index));
                         jexp.Add("Expression", SerializeExpression(exp.TargetExpression, ref index));
@@ -1165,6 +1220,7 @@ namespace UAssetAPI.Kismet
                 case EX_JumpIfNot exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 4;
                         jexp.Add("Offset", exp.CodeOffset);
                         jexp.Add("Condition", SerializeExpression(exp.BooleanExpression, ref index));
@@ -1173,6 +1229,7 @@ namespace UAssetAPI.Kismet
                 case EX_Assert exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 3;
                         jexp.Add("LineNumber", exp.LineNumber);
                         jexp.Add("Debug", exp.DebugMode);
@@ -1182,6 +1239,7 @@ namespace UAssetAPI.Kismet
                 case EX_InstanceDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 12;
                         jexp.Add("FunctionName", exp.FunctionName.ToString());
                         break;
@@ -1189,6 +1247,7 @@ namespace UAssetAPI.Kismet
                 case EX_AddMulticastDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("MulticastDelegate", SerializeExpression(exp.Delegate, ref index));
                         jexp.Add("Delegate", SerializeExpression(exp.DelegateToAdd, ref index));
                         break;
@@ -1196,6 +1255,7 @@ namespace UAssetAPI.Kismet
                 case EX_RemoveMulticastDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("MulticastDelegate", SerializeExpression(exp.Delegate, ref index));
                         jexp.Add("Delegate", SerializeExpression(exp.DelegateToAdd, ref index));
                         break;
@@ -1203,12 +1263,14 @@ namespace UAssetAPI.Kismet
                 case EX_ClearMulticastDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("MulticastDelegate", SerializeExpression(exp.DelegateToClear, ref index));
                         break;
                     }
                 case EX_BindDelegate exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 12;
                         jexp.Add("FunctionName", exp.FunctionName.ToString());
                         jexp.Add("Delegate", SerializeExpression(exp.Delegate, ref index));
@@ -1218,6 +1280,7 @@ namespace UAssetAPI.Kismet
                 case EX_PushExecutionFlow exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 4;
                         jexp.Add("Offset", exp.PushingAddress);
                         break;
@@ -1225,27 +1288,32 @@ namespace UAssetAPI.Kismet
                 case EX_PopExecutionFlow exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         break;
                     }
                 case EX_PopExecutionFlowIfNot exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("Condition", SerializeExpression(exp.BooleanExpression, ref index));
                         break;
                     }
                 case EX_Breakpoint exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         break;
                     }
                 case EX_WireTracepoint exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         break;
                     }
                 case EX_InstrumentationEvent exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index++;
                         switch (exp.EventType)
                         {
@@ -1312,11 +1380,13 @@ namespace UAssetAPI.Kismet
                 case EX_Tracepoint exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         break;
                     }
                 case EX_SwitchValue exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         index += 6;
 
                         jexp.Add("Expression", SerializeExpression(exp.IndexTerm, ref index));
@@ -1341,6 +1411,7 @@ namespace UAssetAPI.Kismet
                 case EX_ArrayGetByRef exp:
                     {
                         jexp.Add("Inst", exp.Inst);
+                        jexp.Add("SerialOffset", exp.SerialOffset);
                         jexp.Add("ArrayExpression", SerializeExpression(exp.ArrayVariable, ref index));
                         jexp.Add("IndexExpression", SerializeExpression(exp.ArrayIndex, ref index));
                         break;
