@@ -166,6 +166,7 @@ namespace UAssetAPI.PropertyTypes.Objects
 
         public override int Write(AssetBinaryWriter writer, bool includeHeader)
         {
+            FName oldArrayType = ArrayType;
             if (Value.Length > 0)
             {
                 ArrayType = writer.Asset.HasUnversionedProperties ? FName.DefineDummy(writer.Asset, Value[0].PropertyType) : new FName(writer.Asset, Value[0].PropertyType);
@@ -173,7 +174,7 @@ namespace UAssetAPI.PropertyTypes.Objects
 
             if (includeHeader && !writer.Asset.HasUnversionedProperties)
             {
-                writer.Write(ArrayType);
+                writer.Write(oldArrayType);
                 writer.WritePropertyGuid(PropertyGuid);
             }
 
@@ -213,6 +214,32 @@ namespace UAssetAPI.PropertyTypes.Objects
                 }
 
                 if (writer.Asset.ObjectVersion >= ObjectVersion.VER_UE4_INNER_ARRAY_TAG_INFO && !isSpecialCase)
+                {
+                    int fullLen = (int)writer.BaseStream.Position - lengthLoc;
+                    int newLoc = (int)writer.BaseStream.Position;
+                    writer.Seek(lengthLoc, SeekOrigin.Begin);
+                    writer.Write(fullLen - 32 - (includeHeader ? 1 : 0));
+                    writer.Seek(newLoc, SeekOrigin.Begin);
+                }
+            }
+            // P3RE PLG Vector
+            else if (ArrayType?.Value?.Value == "Vector" && ShouldSerializeStructsDifferently && !writer.Asset.HasUnversionedProperties)
+            {
+                writer.Write(Value[0].Name); // vertices name
+                writer.Write(new FName(writer.Asset, "StructProperty"));
+                int lengthLoc = (int)writer.BaseStream.Position;
+                writer.Write((long)0);
+                writer.Write(ArrayType); // vector type
+                if (writer.Asset.ObjectVersion >= ObjectVersion.VER_UE4_STRUCT_GUID_IN_PROPERTY_TAG) writer.Write(Guid.Empty.ToByteArray());
+                if (writer.Asset.ObjectVersion >= ObjectVersion.VER_UE4_PROPERTY_GUID_IN_PROPERTY_TAG) writer.Write((byte)0);
+
+                for (int i = 0; i < Value.Length; i++)
+                {
+                    Value[i].Offset = writer.BaseStream.Position;
+                    Value[i].Write(writer, false);
+                }
+
+                if (writer.Asset.ObjectVersion >= ObjectVersion.VER_UE4_INNER_ARRAY_TAG_INFO)
                 {
                     int fullLen = (int)writer.BaseStream.Position - lengthLoc;
                     int newLoc = (int)writer.BaseStream.Position;
